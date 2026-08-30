@@ -1,0 +1,43 @@
+# ---------------------------------------------------------------------------
+# Credenziali. La chiave API TomTom non deve MAI finire nel repository:
+# su GitHub Actions si usa il secret TOMTOM_API_KEY, in locale il file
+# tomtom_key.txt nella radice, escluso dalla regola qui sotto.
+# ---------------------------------------------------------------------------
+**/tomtom_key.txt
+.env
+.env.*
+!.env.example
+
+# ---------------------------------------------------------------------------
+# Output della pipeline: tutto rigenerabile, spesso oltre i 100 MB per file.
+# ---------------------------------------------------------------------------
+output/
+
+# ---------------------------------------------------------------------------
+# Python
+# ---------------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+
+# ---------------------------------------------------------------------------
+# Notebook
+# ---------------------------------------------------------------------------
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/*
+
+# ---------------------------------------------------------------------------
+# Sistema operativo / editor
+# ---------------------------------------------------------------------------
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/
+*~
+~$*

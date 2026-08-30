@@ -1,0 +1,15 @@
+# I CSV di input censuario superano la soglia di warning di GitHub (50 MB):
+# vanno versionati con Git LFS. Prima del primo push eseguire una volta:
+#   git lfs install
+#   git lfs track "data/*.csv" "data/*.parquet" "data/*.geojson"
+data/*.csv     filter=lfs diff=lfs merge=lfs -text
+data/*.parquet filter=lfs diff=lfs merge=lfs -text
+data/*.geojson filter=lfs diff=lfs merge=lfs -text
+
+# Diff dei notebook piu' leggibili
+*.ipynb diff=jupyternotebook
+
+# Normalizzazione fine riga
+*.py   text eol=lf
+*.md   text eol=lf
+*.yml  text eol=lf

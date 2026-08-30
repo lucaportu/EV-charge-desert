@@ -1,0 +1,36 @@
+# EV Charge Desert - dipendenze della pipeline
+# Python >= 3.9 (il modulo standard `zoneinfo`, usato per le fasce orarie
+# italiane in 02_monitoraggio_traffico_tile.py e 09_grafici_presentazione.py,
+# e' disponibile dalla 3.9). Testato su Python 3.11, la versione usata anche
+# dal workflow GitHub Actions.
+#
+#   python -m venv .venv && source .venv/bin/activate
+#   pip install -r requirements.txt
+
+# --- dati tabellari e geospaziali -------------------------------------------
+pandas>=2.0
+numpy>=1.24
+pyarrow>=14.0
+geopandas>=0.14
+# shapely 2.0 e' un requisito STRETTO, non una preferenza:
+# 04_assegna_colonnine_sezioni.py usa STRtree.query(..., predicate=...) in
+# forma bulk e STRtree.query_nearest(), API che in shapely 1.x non esistono.
+shapely>=2.0
+pyproj>=3.4
+
+# --- rete / scraping ---------------------------------------------------------
+requests>=2.31
+mapbox-vector-tile>=2.0    # decodifica dei vector tile TomTom
+selenium>=4.15             # solo per 01/03_scarica_parco_2025_ACI_OPV.py
+
+# --- grafica e cartografia ---------------------------------------------------
+matplotlib>=3.7
+contextily>=1.4            # basemap CartoDB Positron (richiede rete)
+
+# --- generazione del PDF di metodologia --------------------------------------
+reportlab>=4.0
+pillow>=10.0
+
+# --- notebook ----------------------------------------------------------------
+jupyter>=1.0
+ipykernel>=6.25

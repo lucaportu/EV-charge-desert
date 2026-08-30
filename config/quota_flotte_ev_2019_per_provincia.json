@@ -1,0 +1,537 @@
+{
+  "PESCARA": {
+    "ev_2019": 1206,
+    "ev_flotta_2019": 7,
+    "quota_flotta_2019": 0.005804311774461028
+  },
+  "L'AQUILA": {
+    "ev_2019": 891,
+    "ev_flotta_2019": 8,
+    "quota_flotta_2019": 0.008978675645342313
+  },
+  "CHIETI": {
+    "ev_2019": 1113,
+    "ev_flotta_2019": 2,
+    "quota_flotta_2019": 0.0017969451931716084
+  },
+  "TERAMO": {
+    "ev_2019": 1065,
+    "ev_flotta_2019": 7,
+    "quota_flotta_2019": 0.006572769953051643
+  },
+  "POTENZA": {
+    "ev_2019": 487,
+    "ev_flotta_2019": 10,
+    "quota_flotta_2019": 0.02053388090349076
+  },
+  "MATERA": {
+    "ev_2019": 346,
+    "ev_flotta_2019": 2,
+    "quota_flotta_2019": 0.005780346820809248
+  },
+  "VIBO VALENTIA": {
+    "ev_2019": 198,
+    "ev_flotta_2019": 3,
+    "quota_flotta_2019": 0.015151515151515152
+  },
+  "COSENZA": {
+    "ev_2019": 840,
+    "ev_flotta_2019": 3,
+    "quota_flotta_2019": 0.0035714285714285713
+  },
+  "REGGIO DI CALABRIA": {
+    "ev_2019": 1114,
+    "ev_flotta_2019": 5,
+    "quota_flotta_2019": 0.004488330341113106
+  },
+  "CROTONE": {
+    "ev_2019": 274,
+    "ev_flotta_2019": 1,
+    "quota_flotta_2019": 0.0036496350364963502
+  },
+  "CATANZARO": {
+    "ev_2019": 650,
+    "ev_flotta_2019": 3,
+    "quota_flotta_2019": 0.004615384615384616
+  },
+  "SALERNO": {
+    "ev_2019": 1626,
+    "ev_flotta_2019": 19,
+    "quota_flotta_2019": 0.011685116851168511
+  },
+  "NAPOLI": {
+    "ev_2019": 3979,
+    "ev_flotta_2019": 91,
+    "quota_flotta_2019": 0.022870067856245287
+  },
+  "CASERTA": {
+    "ev_2019": 1131,
+    "ev_flotta_2019": 5,
+    "quota_flotta_2019": 0.004420866489832007
+  },
+  "AVELLINO": {
+    "ev_2019": 531,
+    "ev_flotta_2019": 2,
+    "quota_flotta_2019": 0.003766478342749529
+  },
+  "BENEVENTO": {
+    "ev_2019": 338,
+    "ev_flotta_2019": 6,
+    "quota_flotta_2019": 0.01775147928994083
+  },
+  "PARMA": {
+    "ev_2019": 3556,
+    "ev_flotta_2019": 7,
+    "quota_flotta_2019": 0.001968503937007874
+  },
+  "REGGIO NELL'EMILIA": {
+    "ev_2019": 5062,
+    "ev_flotta_2019": 771,
+    "quota_flotta_2019": 0.15231133939154484
+  },
+  "BOLOGNA": {
+    "ev_2019": 15177,
+    "ev_flotta_2019": 64,
+    "quota_flotta_2019": 0.0042169071621532585
+  },
+  "PIACENZA": {
+    "ev_2019": 2044,
+    "ev_flotta_2019": 6,
+    "quota_flotta_2019": 0.0029354207436399216
+  },
+  "RIMINI": {
+    "ev_2019": 2432,
+    "ev_flotta_2019": 126,
+    "quota_flotta_2019": 0.05180921052631579
+  },
+  "MODENA": {
+    "ev_2019": 6590,
+    "ev_flotta_2019": 11,
+    "quota_flotta_2019": 0.001669195751138088
+  },
+  "FORLI'": {
+    "ev_2019": 2160,
+    "ev_flotta_2019": 27,
+    "quota_flotta_2019": 0.0125
+  },
+  "FERRARA": {
+    "ev_2019": 2259,
+    "ev_flotta_2019": 2,
+    "quota_flotta_2019": 0.0008853474988933156
+  },
+  "RAVENNA": {
+    "ev_2019": 2596,
+    "ev_flotta_2019": 56,
+    "quota_flotta_2019": 0.02157164869029276
+  },
+  "PORDENONE": {
+    "ev_2019": 2438,
+    "ev_flotta_2019": 44,
+    "quota_flotta_2019": 0.01804757998359311
+  },
+  "UDINE": {
+    "ev_2019": 3698,
+    "ev_flotta_2019": 17,
+    "quota_flotta_2019": 0.004597079502433748
+  },
+  "TRIESTE": {
+    "ev_2019": 1653,
+    "ev_flotta_2019": 1,
+    "quota_flotta_2019": 0.0006049606775559589
+  },
+  "GORIZIA": {
+    "ev_2019": 753,
+    "ev_flotta_2019": 4,
+    "quota_flotta_2019": 0.005312084993359893
+  },
+  "ROMA": {
+    "ev_2019": 46173,
+    "ev_flotta_2019": 1568,
+    "quota_flotta_2019": 0.03395924024863015
+  },
+  "VITERBO": {
+    "ev_2019": 1198,
+    "ev_flotta_2019": 9,
+    "quota_flotta_2019": 0.007512520868113523
+  },
+  "FROSINONE": {
+    "ev_2019": 1131,
+    "ev_flotta_2019": 20,
+    "quota_flotta_2019": 0.01768346595932803
+  },
+  "LATINA": {
+    "ev_2019": 2088,
+    "ev_flotta_2019": 9,
+    "quota_flotta_2019": 0.004310344827586207
+  },
+  "RIETI": {
+    "ev_2019": 367,
+    "ev_flotta_2019": 1,
+    "quota_flotta_2019": 0.0027247956403269754
+  },
+  "IMPERIA": {
+    "ev_2019": 1058,
+    "ev_flotta_2019": 2,
+    "quota_flotta_2019": 0.001890359168241966
+  },
+  "GENOVA": {
+    "ev_2019": 4814,
+    "ev_flotta_2019": 33,
+    "quota_flotta_2019": 0.006855006231823847
+  },
+  "SAVONA": {
+    "ev_2019": 1289,
+    "ev_flotta_2019": 1,
+    "quota_flotta_2019": 0.0007757951900698216
+  },
+  "LA SPEZIA": {
+    "ev_2019": 856,
+    "ev_flotta_2019": 1,
+    "quota_flotta_2019": 0.0011682242990654205
+  },
+  "BERGAMO": {
+    "ev_2019": 10086,
+    "ev_flotta_2019": 71,
+    "quota_flotta_2019": 0.007039460638508824
+  },
+  "MANTOVA": {
+    "ev_2019": 2680,
+    "ev_flotta_2019": 27,
+    "quota_flotta_2019": 0.010074626865671642
+  },
+  "COMO": {
+    "ev_2019": 7186,
+    "ev_flotta_2019": 40,
+    "quota_flotta_2019": 0.0055663790704146955
+  },
+  "CREMONA": {
+    "ev_2019": 2872,
+    "ev_flotta_2019": 10,
+    "quota_flotta_2019": 0.003481894150417827
+  },
+  "LODI": {
+    "ev_2019": 1336,
+    "ev_flotta_2019": 39,
+    "quota_flotta_2019": 0.029191616766467067
+  },
+  "LECCO": {
+    "ev_2019": 3144,
+    "ev_flotta_2019": 12,
+    "quota_flotta_2019": 0.003816793893129771
+  },
+  "MONZA E DELLA BRIANZA": {
+    "ev_2019": 9900,
+    "ev_flotta_2019": 46,
+    "quota_flotta_2019": 0.004646464646464647
+  },
+  "MILANO": {
+    "ev_2019": 42177,
+    "ev_flotta_2019": 481,
+    "quota_flotta_2019": 0.011404319889987434
+  },
+  "PAVIA": {
+    "ev_2019": 3645,
+    "ev_flotta_2019": 5,
+    "quota_flotta_2019": 0.0013717421124828531
+  },
+  "SONDRIO": {
+    "ev_2019": 960,
+    "ev_flotta_2019": 9,
+    "quota_flotta_2019": 0.009375
+  },
+  "VARESE": {
+    "ev_2019": 10947,
+    "ev_flotta_2019": 10,
+    "quota_flotta_2019": 0.0009134922809902257
+  },
+  "BRESCIA": {
+    "ev_2019": 9515,
+    "ev_flotta_2019": 96,
+    "quota_flotta_2019": 0.010089332632685234
+  },
+  "ANCONA": {
+    "ev_2019": 2238,
+    "ev_flotta_2019": 22,
+    "quota_flotta_2019": 0.009830205540661306
+  },
+  "PESARO": {
+    "ev_2019": 1568,
+    "ev_flotta_2019": 55,
+    "quota_flotta_2019": 0.035076530612244895
+  },
+  "MACERATA": {
+    "ev_2019": 1176,
+    "ev_flotta_2019": 7,
+    "quota_flotta_2019": 0.005952380952380952
+  },
+  "ASCOLI PICENO": {
+    "ev_2019": 781,
+    "ev_flotta_2019": 3,
+    "quota_flotta_2019": 0.0038412291933418692
+  },
+  "FERMO": {
+    "ev_2019": 568,
+    "ev_flotta_2019": 32,
+    "quota_flotta_2019": 0.056338028169014086
+  },
+  "CAMPOBASSO": {
+    "ev_2019": 425,
+    "ev_flotta_2019": 12,
+    "quota_flotta_2019": 0.02823529411764706
+  },
+  "ISERNIA": {
+    "ev_2019": 145,
+    "ev_flotta_2019": 3,
+    "quota_flotta_2019": 0.020689655172413793
+  },
+  "ASTI": {
+    "ev_2019": 820,
+    "ev_flotta_2019": 8,
+    "quota_flotta_2019": 0.00975609756097561
+  },
+  "TORINO": {
+    "ev_2019": 17281,
+    "ev_flotta_2019": 1375,
+    "quota_flotta_2019": 0.07956715467854869
+  },
+  "BIELLA": {
+    "ev_2019": 1134,
+    "ev_flotta_2019": 0,
+    "quota_flotta_2019": 0.0
+  },
+  "CUNEO": {
+    "ev_2019": 3696,
+    "ev_flotta_2019": 38,
+    "quota_flotta_2019": 0.010281385281385282
+  },
+  "ALESSANDRIA": {
+    "ev_2019": 2170,
+    "ev_flotta_2019": 11,
+    "quota_flotta_2019": 0.005069124423963134
+  },
+  "NOVARA": {
+    "ev_2019": 2700,
+    "ev_flotta_2019": 2,
+    "quota_flotta_2019": 0.0007407407407407407
+  },
+  "VERCELLI": {
+    "ev_2019": 1038,
+    "ev_flotta_2019": 12,
+    "quota_flotta_2019": 0.011560693641618497
+  },
+  "VERBANIA": {
+    "ev_2019": 743,
+    "ev_flotta_2019": 10,
+    "quota_flotta_2019": 0.013458950201884253
+  },
+  "BARI": {
+    "ev_2019": 2907,
+    "ev_flotta_2019": 29,
+    "quota_flotta_2019": 0.009975920192638458
+  },
+  "TARANTO": {
+    "ev_2019": 655,
+    "ev_flotta_2019": 0,
+    "quota_flotta_2019": 0.0
+  },
+  "BRINDISI": {
+    "ev_2019": 644,
+    "ev_flotta_2019": 12,
+    "quota_flotta_2019": 0.018633540372670808
+  },
+  "FOGGIA": {
+    "ev_2019": 1264,
+    "ev_flotta_2019": 5,
+    "quota_flotta_2019": 0.003955696202531646
+  },
+  "BARLETTA-ANDRIA-TRANI": {
+    "ev_2019": 873,
+    "ev_flotta_2019": 2,
+    "quota_flotta_2019": 0.002290950744558992
+  },
+  "LECCE": {
+    "ev_2019": 1144,
+    "ev_flotta_2019": 25,
+    "quota_flotta_2019": 0.021853146853146852
+  },
+  "CAGLIARI": {
+    "ev_2019": 1875,
+    "ev_flotta_2019": 23,
+    "quota_flotta_2019": 0.012266666666666667
+  },
+  "SASSARI": {
+    "ev_2019": 1219,
+    "ev_flotta_2019": 44,
+    "quota_flotta_2019": 0.03609515996718622
+  },
+  "NUORO": {
+    "ev_2019": 491,
+    "ev_flotta_2019": 2,
+    "quota_flotta_2019": 0.004073319755600814
+  },
+  "SUD SARDEGNA": {
+    "ev_2019": 456,
+    "ev_flotta_2019": 12,
+    "quota_flotta_2019": 0.02631578947368421
+  },
+  "ORISTANO": {
+    "ev_2019": 232,
+    "ev_flotta_2019": 0,
+    "quota_flotta_2019": 0.0
+  },
+  "MESSINA": {
+    "ev_2019": 1108,
+    "ev_flotta_2019": 8,
+    "quota_flotta_2019": 0.007220216606498195
+  },
+  "PALERMO": {
+    "ev_2019": 2723,
+    "ev_flotta_2019": 43,
+    "quota_flotta_2019": 0.01579140653690782
+  },
+  "SIRACUSA": {
+    "ev_2019": 1099,
+    "ev_flotta_2019": 6,
+    "quota_flotta_2019": 0.00545950864422202
+  },
+  "TRAPANI": {
+    "ev_2019": 617,
+    "ev_flotta_2019": 13,
+    "quota_flotta_2019": 0.02106969205834684
+  },
+  "CATANIA": {
+    "ev_2019": 2076,
+    "ev_flotta_2019": 10,
+    "quota_flotta_2019": 0.004816955684007707
+  },
+  "CALTANISSETTA": {
+    "ev_2019": 222,
+    "ev_flotta_2019": 0,
+    "quota_flotta_2019": 0.0
+  },
+  "RAGUSA": {
+    "ev_2019": 880,
+    "ev_flotta_2019": 6,
+    "quota_flotta_2019": 0.006818181818181818
+  },
+  "AGRIGENTO": {
+    "ev_2019": 387,
+    "ev_flotta_2019": 12,
+    "quota_flotta_2019": 0.031007751937984496
+  },
+  "ENNA": {
+    "ev_2019": 131,
+    "ev_flotta_2019": 30,
+    "quota_flotta_2019": 0.22900763358778625
+  },
+  "LUCCA": {
+    "ev_2019": 1935,
+    "ev_flotta_2019": 4,
+    "quota_flotta_2019": 0.0020671834625322996
+  },
+  "AREZZO": {
+    "ev_2019": 1467,
+    "ev_flotta_2019": 41,
+    "quota_flotta_2019": 0.02794819359236537
+  },
+  "PISA": {
+    "ev_2019": 1923,
+    "ev_flotta_2019": 38,
+    "quota_flotta_2019": 0.019760790431617263
+  },
+  "FIRENZE": {
+    "ev_2019": 19172,
+    "ev_flotta_2019": 11891,
+    "quota_flotta_2019": 0.6202274149801794
+  },
+  "LIVORNO": {
+    "ev_2019": 2794,
+    "ev_flotta_2019": 1520,
+    "quota_flotta_2019": 0.5440229062276306
+  },
+  "SIENA": {
+    "ev_2019": 1367,
+    "ev_flotta_2019": 13,
+    "quota_flotta_2019": 0.009509875640087784
+  },
+  "PRATO": {
+    "ev_2019": 1818,
+    "ev_flotta_2019": 34,
+    "quota_flotta_2019": 0.0187018701870187
+  },
+  "PISTOIA": {
+    "ev_2019": 1115,
+    "ev_flotta_2019": 16,
+    "quota_flotta_2019": 0.014349775784753363
+  },
+  "GROSSETO": {
+    "ev_2019": 720,
+    "ev_flotta_2019": 7,
+    "quota_flotta_2019": 0.009722222222222222
+  },
+  "MASSA-CARRARA": {
+    "ev_2019": 675,
+    "ev_flotta_2019": 1,
+    "quota_flotta_2019": 0.0014814814814814814
+  },
+  "TRENTO": {
+    "ev_2019": 34904,
+    "ev_flotta_2019": 31015,
+    "quota_flotta_2019": 0.8885801054320421
+  },
+  "BOLZANO-BOZEN": {
+    "ev_2019": 7883,
+    "ev_flotta_2019": 4462,
+    "quota_flotta_2019": 0.5660281618673094
+  },
+  "PERUGIA": {
+    "ev_2019": 3148,
+    "ev_flotta_2019": 26,
+    "quota_flotta_2019": 0.008259212198221092
+  },
+  "TERNI": {
+    "ev_2019": 928,
+    "ev_flotta_2019": 5,
+    "quota_flotta_2019": 0.005387931034482759
+  },
+  "AOSTA": {
+    "ev_2019": 1344,
+    "ev_flotta_2019": 50,
+    "quota_flotta_2019": 0.03720238095238095
+  },
+  "PADOVA": {
+    "ev_2019": 8445,
+    "ev_flotta_2019": 104,
+    "quota_flotta_2019": 0.0123149792776791
+  },
+  "VERONA": {
+    "ev_2019": 8089,
+    "ev_flotta_2019": 122,
+    "quota_flotta_2019": 0.015082210409197676
+  },
+  "VICENZA": {
+    "ev_2019": 9172,
+    "ev_flotta_2019": 42,
+    "quota_flotta_2019": 0.004579153946794592
+  },
+  "VENEZIA": {
+    "ev_2019": 5462,
+    "ev_flotta_2019": 67,
+    "quota_flotta_2019": 0.012266569022336141
+  },
+  "TREVISO": {
+    "ev_2019": 7509,
+    "ev_flotta_2019": 33,
+    "quota_flotta_2019": 0.0043947263284059125
+  },
+  "ROVIGO": {
+    "ev_2019": 1258,
+    "ev_flotta_2019": 12,
+    "quota_flotta_2019": 0.009538950715421303
+  },
+  "BELLUNO": {
+    "ev_2019": 1154,
+    "ev_flotta_2019": 29,
+    "quota_flotta_2019": 0.02512998266897747
+  }
+}

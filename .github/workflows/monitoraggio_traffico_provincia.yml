@@ -1,0 +1,100 @@
+name: Monitoraggio traffico provincia di Milano (vector tiles)
+
+# Il TRIGGER esterno (cron-job.org) chiama "ogni 5 minuti", ma ristretto a
+# 7-22 ora italiana (stessa finestra di Progetto3): e' gia' la granularita'
+# piu' fine richiesta nelle fasce di punta. E' lo SCRIPT
+# (src/02_siting_milano/02_monitoraggio_traffico_tile.py, funzione
+# intervallo_corrente) a decidere, in base all'ora locale italiana corrente,
+# se la cadenza applicabile ADESSO e' 5 minuti (fasce di punta, 7-10 e 17-20
+# ora locale: il pattern da catturare e' concentrato li') o 30 minuti (resto
+# della finestra 7-22) - scartando i tentativi che cadono nello stesso bucket
+# temporale di un'esecuzione gia' fatta. Le notti (22-7) sono escluse
+# deliberatamente, non solo per risparmiare quota: la metrica usata ovunque
+# nel progetto e' la congestione MASSIMA per segmento, e di notte la
+# circolazione e' scorrevole quasi ovunque, quindi quelle letture non
+# risultano quasi mai il massimo - il taglio non peggiora la qualita' del
+# dato.
+#
+# NESSUNO schedule nativo di GitHub in aggiunta (rimosso il 03/08, durante
+# la campagna reale): con cron-job.org gia' attivo ogni 5 minuti, un secondo
+# trigger indipendente sulla stessa cadenza produceva esecuzioni quasi in
+# parallelo che si contendevano il push sullo stesso file (osservato: ~1
+# esecuzione su 2 falliva allo step di commit/push durante la finestra di
+# punta 17-20 del primo giorno di raccolta). cron-job.org da solo e'
+# sufficiente ed e' gia' verificato affidabile.
+#
+# CAMPAGNA A TEMPO, non raccolta continua - ma SI FERMA DA SOLA: lo script
+# ha una finestra esplicita (CAMPAGNA_INIZIO/CAMPAGNA_FINE) e fuori da quella
+# finestra esce senza fare alcuna chiamata. Il trigger su cron-job.org puo'
+# quindi restare attivo fin da subito e non serve disattivarlo alla fine.
+#
+# NOTA (post-audit): per rieseguire la campagna in un periodo diverso da
+# quello originale (03-05/08/2026) si passa la data di inizio con la
+# variabile d'ambiente EV_CAMPAGNA_INIZIO (formato YYYY-MM-DD, ora italiana),
+# senza modificare il codice. Vedi il docstring dello script.
+on:
+  workflow_dispatch: {}
+
+concurrency:
+  group: monitoraggio-traffico-provincia-milano
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  monitoraggio:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      # Sottoinsieme minimo di requirements.txt: questo job gira fino a ogni
+      # 5 minuti per 48 ore, installare l'intero file (jupyter, selenium,
+      # reportlab, contextily) aggiungerebbe oltre un minuto a un run che ne
+      # dura 30-50 secondi. I vincoli di versione restano allineati a
+      # requirements.txt - in particolare shapely>=2.
+      - name: Installa dipendenze
+        run: >-
+          pip install
+          'pandas>=2.0' 'numpy>=1.24' 'requests>=2.31' 'geopandas>=0.14'
+          'shapely>=2.0' 'pyproj>=3.4' 'mapbox-vector-tile>=2.0' 'pyarrow>=14.0'
+
+      - name: Esegui monitoraggio traffico (803 tile)
+        env:
+          TOMTOM_API_KEY: ${{ secrets.TOMTOM_API_KEY }}
+        run: python src/02_siting_milano/02_monitoraggio_traffico_tile.py
+
+      - name: Commit e push del parquet del giorno
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          # fuori dalla finestra di campagna lo script non scrive alcun
+          # parquet (corretto): un glob senza corrispondenze fa fallire
+          # "git add" con pathspec error, va assorbito con "|| true" invece
+          # di lasciar fallire lo step (visto succedere nel test manuale
+          # del 02/08, prima dell'inizio campagna)
+          git add data/traffico_provincia_*.parquet || true
+          if git diff --staged --quiet; then
+            echo "Nessuna nuova riga da salvare"
+            exit 0
+          fi
+          git commit -m "Aggiorna traffico provincia $(date -u +'%Y-%m-%dT%H:%M:%SZ')"
+          # retry su push: anche con un solo trigger attivo, un run del
+          # workflow POI (una tantum) o un run precedente ancora in coda
+          # possono pushare nel frattempo - "git pull --rebase" seguito da
+          # "git push" puo' fallire per una race persa, non e' un errore
+          # permanente, si ritenta invece di far fallire tutto il job
+          for tentativo in 1 2 3 4 5; do
+            if git pull --rebase && git push; then
+              echo "Push riuscito al tentativo $tentativo"
+              exit 0
+            fi
+            echo "Tentativo $tentativo fallito, riprovo tra $((tentativo * 5))s..."
+            sleep $((tentativo * 5))
+          done
+          echo "Push fallito dopo 5 tentativi"
+          exit 1
