@@ -59,20 +59,13 @@ from pyproj import Transformer
 from shapely.ops import transform
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from paths import (CONFIG_DIR, DATA_DIR, OUTPUT_DIR, OVERPASS_CACHE_DIR,
-                   TOMTOM_KEY_FILE, assicura, gap_score_definitivo, manca, trova)
+from paths import OVERPASS_CACHE_DIR, trova
 
 
 IN_GEOJSON = trova("sezioni_target_validazione.geojson")
 OUT_DIR = OVERPASS_CACHE_DIR
 
 OVERPASS_URL = "https://overpass-api.de/api/interpreter"
-
-# Overpass chiede un contatto nello User-Agent per poter segnalare un uso
-# anomalo. Va indicato un recapito RAGGIUNGIBILE, impostato via ambiente,
-# cosi' nessun indirizzo personale resta scritto nel repository pubblico:
-#     export OVERPASS_CONTACT="nome.cognome@campus.unimib.it"
-CONTATTO = os.environ.get("OVERPASS_CONTACT", "").strip()
 
 # Overpass chiede un contatto nello User-Agent per poter segnalare un uso
 # anomalo. Va indicato un recapito RAGGIUNGIBILE, impostato via ambiente,

@@ -38,7 +38,6 @@ output (cosi' il file resta apribile con gpd.read_parquet).
 import sys
 import gc
 import os
-import os
 from pathlib import Path
 
 import geopandas as gpd
@@ -47,8 +46,7 @@ import pandas as pd
 import pyarrow.parquet as pq
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from paths import (CONFIG_DIR, DATA_DIR, OUTPUT_DIR, OVERPASS_CACHE_DIR,
-                   TOMTOM_KEY_FILE, assicura, gap_score_definitivo, manca, trova)
+from paths import DATA_DIR, OUTPUT_DIR, trova
 
 
 

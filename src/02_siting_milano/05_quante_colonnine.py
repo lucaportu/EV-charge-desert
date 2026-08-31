@@ -31,13 +31,12 @@ import numpy as np
 import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from paths import (CONFIG_DIR, DATA_DIR, OUTPUT_DIR, OVERPASS_CACHE_DIR,
-                   TOMTOM_KEY_FILE, assicura, gap_score_definitivo, manca, trova)
+from paths import OUTPUT_DIR, assicura, gap_score_definitivo, trova
 
 
 IN_GAP_SCORE_NAZIONALE = gap_score_definitivo()
 IN_GEOJSON_TARGET = trova("sezioni_target_validazione.geojson")
-OUT_CSV = OUTPUT_DIR / "quante_colonnine_critiche.csv"
+OUT_CSV = assicura(OUTPUT_DIR) / "quante_colonnine_critiche.csv"
 
 MAX_SCENARI = 8  # scenari 0..8 nuove colonnine; se una sezione non scende sotto
                   # soglia nemmeno a +8 resta segnalata (colonnine_necessarie = None)

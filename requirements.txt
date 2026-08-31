@@ -10,6 +10,9 @@
 # --- dati tabellari e geospaziali -------------------------------------------
 pandas>=2.0
 numpy>=1.24
+# scipy: spearmanr (notebook 04), stats (09), cKDTree e
+# linear_sum_assignment (12 - validazione).
+scipy>=1.10
 pyarrow>=14.0
 geopandas>=0.14
 # shapely 2.0 e' un requisito STRETTO, non una preferenza:

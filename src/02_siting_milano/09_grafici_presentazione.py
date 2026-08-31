@@ -34,7 +34,7 @@ dove possibile (import diretto di 05_quante_colonnine.py e
   4. gap_score_<comune>_<SEZ2011>.png - impatto di 0-3 nuove colonnine sul
      GAP score (nessuna mappa, grafico a barre - stile invariato dalla v1).
 
-Output: Progetto4-Master-ProvinciaMilano/grafici/*.png
+Output: output/grafici/*.png
 """
 
 import sys
@@ -54,14 +54,14 @@ from matplotlib.lines import Line2D
 from shapely.geometry import Point
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from paths import (CONFIG_DIR, DATA_DIR, OUTPUT_DIR, OVERPASS_CACHE_DIR,
-                   TOMTOM_KEY_FILE, assicura, gap_score_definitivo, manca, trova)
+from paths import (DATA_DIR, GRAFICI_DIR, OUTPUT_DIR, OVERPASS_CACHE_DIR,
+                   assicura, gap_score_definitivo, trova)
 
 
 CARTELLA_SCRIPT = Path(__file__).resolve().parent
-CARTELLA_PROGETTO = CARTELLA_SCRIPT.parent
-CARTELLA_GRAFICI = CARTELLA_PROGETTO / "grafici"
-CARTELLA_GRAFICI.mkdir(exist_ok=True)
+# i PNG sono un prodotto della pipeline: vanno in output/ (ignorata da git),
+# non accanto al codice sorgente.
+CARTELLA_GRAFICI = assicura(GRAFICI_DIR)
 
 IN_GAP_SCORE_NAZIONALE = gap_score_definitivo()
 

@@ -128,8 +128,7 @@ import requests
 from shapely.geometry import LineString, MultiLineString
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from paths import (CONFIG_DIR, DATA_DIR, OUTPUT_DIR, OVERPASS_CACHE_DIR,
-                   TOMTOM_KEY_FILE, assicura, gap_score_definitivo, manca, trova)
+from paths import DATA_DIR, TOMTOM_KEY_FILE, trova
 
 
 IN_GEOJSON = trova("sezioni_target_validazione.geojson")
@@ -212,13 +211,6 @@ def leggi_api_key():
     da_env = os.environ.get("TOMTOM_API_KEY")
     if da_env:
         return da_env.strip()
-    if not KEY_PATH.exists():
-        raise SystemExit(
-            "Chiave API TomTom non trovata.\n"
-            "  Su GitHub Actions: secret TOMTOM_API_KEY del repository.\n"
-            f"  In locale: scrivere la chiave in {KEY_PATH}\n"
-            "  (il file e' ignorato da git tramite **/tomtom_key.txt)."
-        )
     if not KEY_PATH.exists():
         raise SystemExit(
             "Chiave API TomTom non trovata.\n"

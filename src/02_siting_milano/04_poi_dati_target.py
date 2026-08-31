@@ -27,13 +27,12 @@ import pandas as pd
 from shapely.geometry import Point
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from paths import (CONFIG_DIR, DATA_DIR, OUTPUT_DIR, OVERPASS_CACHE_DIR,
-                   TOMTOM_KEY_FILE, assicura, gap_score_definitivo, manca, trova)
+from paths import OUTPUT_DIR, OVERPASS_CACHE_DIR, assicura, trova
 
 
 IN_GEOJSON = trova("sezioni_target_validazione.geojson")
 RAW_DIR = OVERPASS_CACHE_DIR
-OUT_CSV = OUTPUT_DIR / "poi_dati_target.csv"
+OUT_CSV = assicura(OUTPUT_DIR) / "poi_dati_target.csv"
 
 CATEGORIE = ["parking", "supermarket", "fuel", "office", "hospital",
              "food_drink", "fitness", "park", "mall", "cinema"]

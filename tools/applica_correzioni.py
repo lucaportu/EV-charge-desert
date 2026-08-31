@@ -32,6 +32,10 @@ Cosa fa, file per file:
  5. Sposta il file locale della chiave TomTom sulla radice del repository,
     dove il pattern `**/tomtom_key.txt` del .gitignore lo copre davvero.
 
+Limiti noti: nei notebook riscrive solo i percorsi `C:\\Users\\...`. Gli altri
+percorsi assoluti (macOS `/Users/...`, unita' `E:\\...`) vengono SEGNALATI ma
+non riscritti: la costante di destinazione giusta dipende dal notebook.
+
 Sicurezza: lo script NON riscrive un file "alla cieca". Per ogni sostituzione
 verifica che il testo atteso sia presente; se non lo trova lo segnala e lascia
 il file invariato. E' inoltre idempotente: un file gia' corretto viene saltato.
@@ -83,10 +87,20 @@ RINOMINATI = {
     "sezioni_censimento_2011_ridotto.csv": "0_sezioni_censimento_2011_ridotto.csv",
 }
 
+# L'import deve contenere TUTTI i nomi che la riscrittura puo' generare: la
+# tabella FISSE mappa alcune cartelle su ISTAT_ZIP_DIR e OVERPASS_CACHE_DIR, e
+# senza ISTAT_ZIP_DIR nell'import i due script ISTAT compilavano ma fallivano
+# con NameError al primo avvio.
+NOMI_PATHS = (
+    "CONFIG_DIR", "DATA_DIR", "GRAFICI_DIR", "GRAFICI_VALIDAZIONE_DIR",
+    "ISTAT_ZIP_DIR", "MAPPE_V2_DIR", "OUTPUT_DIR", "OVERPASS_CACHE_DIR",
+    "TOMTOM_KEY_FILE", "assicura", "gap_score_definitivo", "manca", "trova",
+)
 BOOTSTRAP = (
     "sys.path.insert(0, str(Path(__file__).resolve().parent.parent))\n"
-    "from paths import (CONFIG_DIR, DATA_DIR, OUTPUT_DIR, OVERPASS_CACHE_DIR,\n"
-    "                   TOMTOM_KEY_FILE, assicura, gap_score_definitivo, manca, trova)\n"
+    "from paths import (" + ", ".join(NOMI_PATHS[:4]) + ",\n"
+    "                   " + ", ".join(NOMI_PATHS[4:9]) + ",\n"
+    "                   " + ", ".join(NOMI_PATHS[9:]) + ")\n"
 )
 
 PATH_ASSOLUTO = re.compile(
@@ -101,13 +115,16 @@ RIF_DATI = re.compile(r"\bDATI\s*/\s*")
 # Costanti con una destinazione fissa, indipendente dal nome del file.
 FISSE = {
     "istat_basi_territoriali_2011": "ISTAT_ZIP_DIR",
+    "grafici": "assicura(GRAFICI_DIR)",
+    "grafici di validazione": "assicura(GRAFICI_VALIDAZIONE_DIR)",
     "overpass_raw_poi": "OVERPASS_CACHE_DIR",
     "tomtom_key.txt": "TOMTOM_KEY_FILE",
     "sezioni_gap_score_DEFINITIVO.parquet": "gap_score_definitivo()",
 }
 
 # Radici di percorso usate dal codice originale, tutte da sostituire.
-RADICI = r"(?:CARTELLA_PROGETTO_PRINCIPALE|CARTELLA_SCRIPT|REPO_ROOT|BASE_DIR|DATI|QUI)"
+RADICI = (r"(?:CARTELLA_PROGETTO_PRINCIPALE|CARTELLA_PROGETTO|CARTELLA_SCRIPT"
+          r"|REPO_ROOT|BASE_DIR|DATI|QUI)")
 
 ASSEGNAZIONE = re.compile(
     r"^(?P<lhs>[A-Z_][A-Z0-9_]*) = " + RADICI + r"\s*/\s*(?P<resto>.+?)$",
@@ -209,21 +226,40 @@ def inserisci_bootstrap(testo: str) -> str:
             r"^import sys$", "import sys\nfrom pathlib import Path", testo,
             count=1, flags=re.MULTILINE,
         )
-    # inserisce il bootstrap dopo l'ultimo import di primo livello
+    # Inserisce il bootstrap dopo l'ultimo import di primo livello. Va contata
+    # la parentesi aperta: un import multiriga (`from x import (\n  a, b,\n)`)
+    # occupa piu' righe, e inserire dopo la prima spezzerebbe il file.
     righe = testo.split("\n")
     ultimo = 0
-    for i, riga in enumerate(righe):
-        if re.match(r"^(import |from )\S", riga):
+    i = 0
+    while i < len(righe):
+        if re.match(r"^(import |from )\S", righe[i]):
+            aperte = righe[i].count("(") - righe[i].count(")")
+            while aperte > 0 and i + 1 < len(righe):
+                i += 1
+                aperte += righe[i].count("(") - righe[i].count(")")
             ultimo = i
+        i += 1
     righe.insert(ultimo + 1, "\n" + BOOTSTRAP)
     return "\n".join(righe)
 
 
 def pulisci_definizioni_morte(testo: str) -> str:
     """Toglie le costanti di percorso ormai inutilizzate."""
-    testo = PATH_ASSOLUTO.sub("", testo)
+
+    def togli_se_inutilizzata(match: re.Match) -> str:
+        # la riga e' `NOME = Path(r"C:\\Users\\...")`: si cancella solo se NOME
+        # non compare piu' altrove, altrimenti si lascerebbe un NameError.
+        nome = match.group(0).split(" = ", 1)[0]
+        resto = testo.replace(match.group(0), "")
+        return "" if not re.search(rf"\b{nome}\b", resto) else match.group(0)
+
+    testo = PATH_ASSOLUTO.sub(togli_se_inutilizzata, testo)
     testo = re.sub(r"^REPO_ROOT = BASE_DIR\.parent\n", "", testo, flags=re.MULTILINE)
     testo = re.sub(r"^DATI = QUI\.parent[^\n]*\n", "", testo, flags=re.MULTILINE)
+    testo = re.sub(r"^CARTELLA_PROGETTO = CARTELLA_SCRIPT\.parent\n", "", testo,
+                   flags=re.MULTILINE) if not re.search(
+                       r"CARTELLA_PROGETTO\b(?! = CARTELLA_SCRIPT)", testo) else testo
     for nome in ("CARTELLA_SCRIPT", "BASE_DIR", "REPO_ROOT", "QUI", "DATI"):
         # rimuove la definizione solo se il nome non e' piu' usato altrove
         definizione = re.compile(
@@ -351,7 +387,15 @@ PUNTUALI: dict[str, list[tuple[str, str]]] = {
     "src/02_siting_milano/08_genera_metodologia_pdf.py": [
         (
             "github.com/sfasanelli-svg/Progetto4-Master",
-            "questo repository",
+            "github.com/lucaportu/EV-charge-desert",
+        ),
+        (
+            'OUT_PDF = r"C:\\Users\\fasanelli michele\\OneDrive\\Desktop\\'
+            'Progetto4-Master-ProvinciaMilano\\metodologia_provincia_milano.pdf"',
+            '# Il PDF e\' un prodotto della pipeline (output/), e le figure che\n'
+            "# incorpora sono quelle scritte da 09_grafici_presentazione.py e\n"
+            "# 10_grafico_validazione_controprova.py.\n"
+            'OUT_PDF = str(assicura(OUTPUT_DIR) / "metodologia_provincia_milano.pdf")',
         ),
     ],
     "src/01_pipeline_nazionale/05_merge_auto_colonnine_geo.py": [
@@ -432,10 +476,39 @@ def correggi_python(percorso: Path, scrivi: bool, backup: bool) -> str:
     return esito
 
 
+# Percorsi assoluti che il sostitutore automatico NON sa riscrivere (non sa
+# quale costante del progetto dovrebbero diventare): vengono elencati, perche'
+# dire "nessun percorso assoluto" quando ce n'e' uno e' peggio che non guardare.
+ALTRI_ASSOLUTI = re.compile(r"""(?:/Users/|/home/|[D-Z]:\\)[^"']*""")
+
+
+def percorsi_non_gestiti(nb: dict) -> list[str]:
+    trovati = []
+    for cella in nb.get("cells", []):
+        if cella.get("cell_type") != "code":
+            continue
+        sorgente = cella.get("source", [])
+        if isinstance(sorgente, str):
+            sorgente = sorgente.splitlines(keepends=True)
+        for riga in sorgente:
+            if riga.lstrip().startswith("#"):
+                continue          # esempi commentati: non sono eseguiti
+            for match in ALTRI_ASSOLUTI.findall(riga):
+                trovati.append(match)
+    return trovati
+
+
 def correggi_notebook(percorso: Path, scrivi: bool, backup: bool) -> str:
     grezzo = originale = percorso.read_text(encoding="utf-8")
     # nel JSON grezzo il backslash e' raddoppiato: C:\\Users\\...
     if "C:\\\\Users" not in grezzo:
+        try:
+            altri = percorsi_non_gestiti(json.loads(grezzo))
+        except json.JSONDecodeError:
+            return "ERRORE: JSON non valido - non toccato"
+        if altri:
+            return ("ATTENZIONE: percorsi assoluti da correggere a mano: "
+                    + ", ".join(sorted(set(altri))[:3]))
         return "nessun percorso assoluto"
 
     try:
@@ -465,7 +538,11 @@ def correggi_notebook(percorso: Path, scrivi: bool, backup: bool) -> str:
     nb.get("metadata", {}).pop("colab", None)
     nb.get("metadata", {}).pop("widgets", None)
 
+    altri = percorsi_non_gestiti(nb)
     if sostituzioni == 0:
+        if altri:
+            return ("ATTENZIONE: percorsi assoluti da correggere a mano: "
+                    + ", ".join(sorted(set(altri))[:3]))
         return "nessun percorso assoluto in celle di codice"
     if scrivi:
         if backup:

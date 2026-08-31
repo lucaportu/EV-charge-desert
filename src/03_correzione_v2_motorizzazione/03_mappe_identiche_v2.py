@@ -28,17 +28,17 @@ import matplotlib
 matplotlib.use("Agg")          # nessuna finestra: lo script salva solo i PNG
 import matplotlib.pyplot as plt
 import numpy as np
-import pandas as pd
 from matplotlib.colors import (BoundaryNorm, LinearSegmentedColormap,
                                ListedColormap, TwoSlopeNorm)
 from matplotlib.patches import Patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from paths import (CONFIG_DIR, DATA_DIR, OUTPUT_DIR, OVERPASS_CACHE_DIR,
-                   TOMTOM_KEY_FILE, assicura, gap_score_definitivo, manca, trova)
+from paths import MAPPE_V2_DIR, OUTPUT_DIR, assicura, trova
 
 
-QUI = Path(__file__).resolve().parent
+# le 16 figure sono un prodotto della pipeline: vanno in output/mappe_v2,
+# non accanto al codice sorgente.
+QUI = assicura(MAPPE_V2_DIR)
 
 PARQUET = OUTPUT_DIR / "sezioni_gap_v2.parquet"  # <-- unica differenza sostanziale
 PROV_GEOM = trova("province_geom.parquet")

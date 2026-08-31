@@ -31,16 +31,14 @@ from pathlib import Path
 import pyarrow.parquet as pq
 import shapely
 import geopandas as gpd
-import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from paths import (CONFIG_DIR, DATA_DIR, OUTPUT_DIR, OVERPASS_CACHE_DIR,
-                   TOMTOM_KEY_FILE, assicura, gap_score_definitivo, manca, trova)
+from paths import OUTPUT_DIR, assicura, gap_score_definitivo
 
 
 IN_PARQUET = gap_score_definitivo()
 
-OUT_GEOJSON = OUTPUT_DIR / "sezioni_provincia_milano.geojson"
+OUT_GEOJSON = assicura(OUTPUT_DIR) / "sezioni_provincia_milano.geojson"
 
 CRS_SORGENTE = "EPSG:32632"
 CRS_WGS84 = "EPSG:4326"

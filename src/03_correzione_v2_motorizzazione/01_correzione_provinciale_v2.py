@@ -53,8 +53,7 @@ import numpy as np
 import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from paths import (CONFIG_DIR, DATA_DIR, OUTPUT_DIR, OVERPASS_CACHE_DIR,
-                   TOMTOM_KEY_FILE, assicura, gap_score_definitivo, manca, trova)
+from paths import CONFIG_DIR, OUTPUT_DIR, assicura, gap_score_definitivo, trova
 
 
 
@@ -62,7 +61,7 @@ PARCO_RAW = CONFIG_DIR / "parco_circolante_2025_ACI_OPV_raw.json"
 QUOTE_FLOTTE = CONFIG_DIR / "quota_flotte_ev_2019_per_provincia.json"
 DOMANDA_PROV = trova("domanda_ricarica_2025_per_provincia.csv")
 GAP_PARQUET = gap_score_definitivo()
-OUTPUT = OUTPUT_DIR / "domanda_provincia_v2_CORRETTA.csv"
+OUTPUT = assicura(OUTPUT_DIR) / "domanda_provincia_v2_CORRETTA.csv"
 
 # --- parametri della regola (espliciti, cosi' sono discutibili e replicabili) ---
 SOGLIA_PROVINCIA = 1.25   # oltre +25% sulla media nazionale la provincia e' sospetta

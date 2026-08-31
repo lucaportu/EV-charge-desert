@@ -25,8 +25,7 @@ from pathlib import Path
 from urllib.request import urlretrieve
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from paths import (CONFIG_DIR, DATA_DIR, OUTPUT_DIR, OVERPASS_CACHE_DIR,
-                   TOMTOM_KEY_FILE, assicura, gap_score_definitivo, manca, trova)
+from paths import ISTAT_ZIP_DIR
 
 
 BASE_URL = "https://www.istat.it/storage/cartografia/basi_territoriali/WGS_84_UTM/2011/R{:02d}_11_WGS84.zip"

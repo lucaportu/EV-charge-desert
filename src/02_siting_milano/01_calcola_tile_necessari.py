@@ -26,13 +26,12 @@ import geopandas as gpd
 import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from paths import (CONFIG_DIR, DATA_DIR, OUTPUT_DIR, OVERPASS_CACHE_DIR,
-                   TOMTOM_KEY_FILE, assicura, gap_score_definitivo, manca, trova)
+from paths import OUTPUT_DIR, assicura, trova
 
 
 IN_GEOJSON = trova("sezioni_target_validazione.geojson")
-OUT_TILE = OUTPUT_DIR / "tile_necessari.csv"
-OUT_MAPPA = OUTPUT_DIR / "sezione_tile.csv"
+OUT_TILE = assicura(OUTPUT_DIR) / "tile_necessari.csv"
+OUT_MAPPA = assicura(OUTPUT_DIR) / "sezione_tile.csv"
 
 ZOOM = 15
 

@@ -42,13 +42,12 @@ from pyproj import Transformer
 from shapely.geometry import Point
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from paths import (CONFIG_DIR, DATA_DIR, OUTPUT_DIR, OVERPASS_CACHE_DIR,
-                   TOMTOM_KEY_FILE, assicura, gap_score_definitivo, manca, trova)
+from paths import DATA_DIR, OUTPUT_DIR, OVERPASS_CACHE_DIR, assicura, trova
 
 
 IN_GEOJSON = trova("sezioni_target_validazione.geojson")
 RAW_POI_DIR = OVERPASS_CACHE_DIR
-OUT_CSV = OUTPUT_DIR / "candidati_siting_provincia.csv"
+OUT_CSV = assicura(OUTPUT_DIR) / "candidati_siting_provincia.csv"
 
 MIN_LETTURE = 5
 DISTANZA_MASSIMA_M = 300

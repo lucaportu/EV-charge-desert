@@ -36,14 +36,13 @@ import pandas as pd
 from pyproj import Transformer
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from paths import (CONFIG_DIR, DATA_DIR, OUTPUT_DIR, OVERPASS_CACHE_DIR,
-                   TOMTOM_KEY_FILE, assicura, gap_score_definitivo, manca, trova)
+from paths import OUTPUT_DIR, assicura, trova
 
 
 
 IN_CANDIDATI = trova("candidati_siting_provincia.csv")
 IN_COLONNINE_RIMOSSE = trova("colonnine_rimosse_controprova.csv")
-OUT_CSV = OUTPUT_DIR / "validazione_controprova.csv"
+OUT_CSV = assicura(OUTPUT_DIR) / "validazione_controprova.csv"
 
 CRS_WGS84 = "EPSG:4326"
 CRS_UTM = "EPSG:32632"

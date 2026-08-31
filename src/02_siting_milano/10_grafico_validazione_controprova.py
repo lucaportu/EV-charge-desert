@@ -37,7 +37,7 @@ altrimenti come 3 punti sovrapposti, gonfiando visivamente il conteggio.
 
 Input: sezioni_target_validazione.geojson, candidati_siting_provincia.csv
        (script 06), Contesto lavoro di gruppo ETL/colonnine_rimosse_controprova.csv
-Output: Progetto4-Master-ProvinciaMilano/grafici di validazione/*.png
+Output: output/grafici di validazione/*.png
 """
 
 import sys
@@ -53,14 +53,12 @@ from pyproj import Transformer
 from shapely.geometry import Point
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from paths import (CONFIG_DIR, DATA_DIR, OUTPUT_DIR, OVERPASS_CACHE_DIR,
-                   TOMTOM_KEY_FILE, assicura, gap_score_definitivo, manca, trova)
+from paths import GRAFICI_VALIDAZIONE_DIR, assicura, trova
 
 
-CARTELLA_SCRIPT = Path(__file__).resolve().parent
-CARTELLA_PROGETTO = CARTELLA_SCRIPT.parent
-CARTELLA_GRAFICI = CARTELLA_PROGETTO / "grafici di validazione"
-CARTELLA_GRAFICI.mkdir(exist_ok=True)
+# i PNG sono un prodotto della pipeline: vanno in output/ (ignorata da git),
+# non accanto al codice sorgente.
+CARTELLA_GRAFICI = assicura(GRAFICI_VALIDAZIONE_DIR)
 
 
 IN_GEOJSON = trova("sezioni_target_validazione.geojson")

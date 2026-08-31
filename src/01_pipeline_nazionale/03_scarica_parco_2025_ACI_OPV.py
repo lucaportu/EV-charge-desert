@@ -32,7 +32,6 @@ qui sotto potrebbero dover essere adattati.
 import sys
 from pathlib import Path
 import json
-import time
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -40,8 +39,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from paths import (CONFIG_DIR, DATA_DIR, OUTPUT_DIR, OVERPASS_CACHE_DIR,
-                   TOMTOM_KEY_FILE, assicura, gap_score_definitivo, manca, trova)
+from paths import CONFIG_DIR
 
 
 URL = "http://opv.aci.it/WEBDMCircolante/"

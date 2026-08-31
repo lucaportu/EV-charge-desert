@@ -76,8 +76,7 @@ import pandas as pd
 from shapely.validation import make_valid
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from paths import (CONFIG_DIR, DATA_DIR, OUTPUT_DIR, OVERPASS_CACHE_DIR,
-                   TOMTOM_KEY_FILE, assicura, gap_score_definitivo, manca, trova)
+from paths import OUTPUT_DIR, ISTAT_ZIP_DIR, trova
 
 
 

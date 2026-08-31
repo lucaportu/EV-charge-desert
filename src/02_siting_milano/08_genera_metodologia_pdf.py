@@ -15,6 +15,7 @@ sotto media di copertura, confronto visivo applicabile solo a 20/74
 sezioni), e il nuovo §9 con il rimando alle cartelle grafici/ complete.
 """
 
+import sys
 from pathlib import Path
 
 from PIL import Image as PILImage
@@ -26,10 +27,16 @@ from reportlab.platypus import (
     Image, ListFlowable, ListItem, Paragraph, SimpleDocTemplate, Spacer, Table, TableStyle,
 )
 
-OUT_PDF = r"C:\Users\fasanelli michele\OneDrive\Desktop\Progetto4-Master-ProvinciaMilano\metodologia_provincia_milano.pdf"
-CARTELLA_PROGETTO = Path(r"C:\Users\fasanelli michele\OneDrive\Desktop\Progetto4-Master-ProvinciaMilano")
-CARTELLA_GRAFICI = CARTELLA_PROGETTO / "grafici"
-CARTELLA_GRAFICI_VALIDAZIONE = CARTELLA_PROGETTO / "grafici di validazione"
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from paths import GRAFICI_DIR, GRAFICI_VALIDAZIONE_DIR, OUTPUT_DIR, assicura
+
+# Il PDF e' un prodotto della pipeline (output/), e le figure che incorpora sono
+# quelle scritte da 09_grafici_presentazione.py e
+# 10_grafico_validazione_controprova.py: vanno lette dalle stesse cartelle in
+# cui quegli script le salvano, non da un percorso locale di una macchina.
+OUT_PDF = str(assicura(OUTPUT_DIR) / "metodologia_provincia_milano.pdf")
+CARTELLA_GRAFICI = GRAFICI_DIR
+CARTELLA_GRAFICI_VALIDAZIONE = GRAFICI_VALIDAZIONE_DIR
 
 styles = getSampleStyleSheet()
 title_style = ParagraphStyle("TitoloDoc", parent=styles["Title"], fontSize=18, leading=22, spaceAfter=6)
@@ -55,6 +62,12 @@ def p(text):
 def immagine(path, larghezza_cm, didascalia):
     """Figura con larghezza fissa e altezza proporzionale (letta dal file al
     momento della generazione, non hardcoded), più didascalia sotto."""
+    if not Path(path).exists():
+        raise SystemExit(
+            f"Figura non trovata: {path}\n"
+            "  Le figure del PDF sono prodotte da 09_grafici_presentazione.py e\n"
+            "  10_grafico_validazione_controprova.py: eseguirli prima di questo script."
+        )
     with PILImage.open(path) as im:
         w_px, h_px = im.size
     larghezza = larghezza_cm * cm
@@ -504,7 +517,7 @@ story.append(bullets([
 ]))
 story.append(p(
     "Entrambe le cartelle sono nel repository "
-    "<i>github.com/sfasanelli-svg/Progetto4-Master</i>, insieme a tutti i CSV di output citati in "
+    "<i>github.com/lucaportu/EV-charge-desert</i>, insieme a tutti i CSV di output citati in "
     "questo documento (<i>quante_colonnine_critiche.csv</i>, <i>candidati_siting_provincia.csv</i>, "
     "<i>validazione_controprova.csv</i>)."))
 

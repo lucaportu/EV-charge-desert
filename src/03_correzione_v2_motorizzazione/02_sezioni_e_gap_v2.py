@@ -41,16 +41,15 @@ import numpy as np
 import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from paths import (CONFIG_DIR, DATA_DIR, OUTPUT_DIR, OVERPASS_CACHE_DIR,
-                   TOMTOM_KEY_FILE, assicura, gap_score_definitivo, manca, trova)
+from paths import OUTPUT_DIR, assicura, gap_score_definitivo, trova
 
 
 
 GAP_PARQUET = gap_score_definitivo()
 PROV_V2 = trova("domanda_provincia_v2_CORRETTA.csv")
-OUT_PARQUET = OUTPUT_DIR / "sezioni_gap_v2.parquet"
-OUT_CSV = OUTPUT_DIR / "gap_score_v2.csv"
-OUT_CONFRONTO = OUTPUT_DIR / "confronto_gap_v1_v2.csv"
+OUT_PARQUET = assicura(OUTPUT_DIR) / "sezioni_gap_v2.parquet"
+OUT_CSV = assicura(OUTPUT_DIR) / "gap_score_v2.csv"
+OUT_CONFRONTO = assicura(OUTPUT_DIR) / "confronto_gap_v1_v2.csv"
 
 CRS = "EPSG:32632"
 SOGLIA_DESERTO = 0.429   # soglia del gomito, invariata rispetto alla v1

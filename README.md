@@ -24,11 +24,16 @@ clone pulito non parte. La correzione è automatica:
 
 ```bash
 git clone <url-del-repository> && cd <repository>
+git lfs install && git lfs pull               # i file in data/ sono su Git LFS
 python -m venv .venv && source .venv/bin/activate    # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 python tools/applica_correzioni.py            # anteprima, non scrive nulla
 python tools/applica_correzioni.py --scrivi   # applica
 ```
+
+> Senza `git lfs pull` i file in `data/` restano puntatori di ~130 byte e ogni
+> lettura fallisce con un errore di formato: se `ls -l data/` mostra file di
+> poche centinaia di byte invece dei MB dichiarati sotto, manca questo passo.
 
 Lo script unifica tutti i percorsi su `src/paths.py`, toglie i percorsi assoluti
 e l'indirizzo email personale rimasto nello User-Agent Overpass. Non riscrive un
@@ -57,7 +62,8 @@ Con `--backup` tiene una copia `.orig` di ogni file toccato.
 | `.github/workflows/` | automazione della campagna traffico |
 
 Convenzione unica dopo la correzione: si legge da `data/` e `config/`, si scrive
-sempre in `output/`. Gli step che consumano un file lo cercano prima in
+sempre in `output/` — figure comprese (`output/grafici/`,
+`output/grafici di validazione/`, `output/mappe_v2/`). Gli step che consumano un file lo cercano prima in
 `output/` (versione appena rigenerata) e poi in `data/` (copia versionata), così
 si può partire da un punto qualsiasi della pipeline senza rieseguire tutto ciò
 che sta a monte.
@@ -89,6 +95,7 @@ che sta a monte.
 | `EV_GAP_PARQUET` | percorso di `sezioni_gap_score_DEFINITIVO.parquet` | se si tiene il file da 593 MB fuori dal repository |
 | `EV_DOMANDA_SEZIONE_CSV` | percorso della domanda per sezione | vedi "Dati NON inclusi" |
 | `EV_CAMPAGNA_INIZIO` | data di inizio campagna traffico (`YYYY-MM-DD`) | per rieseguire la campagna in una settimana diversa da quella originale |
+| `EV_INDICATORI_ISTAT_DIR` | cartella dei 20 CSV di indicatori censuari ISTAT (`R01_indicatori_2011_sezioni.csv` …) | notebook `01_sezioni_censimento.ipynb`; senza, li cerca in `output/indicatori_istat_2011/` |
 
 ---
 
@@ -109,11 +116,11 @@ che sta a monte.
 | 9 | `src/01_pipeline_nazionale/05_merge_auto_colonnine_geo.py` | i tre output sopra | `sezioni_offerta_domanda_merged.parquet` |
 | 10 | `notebooks/08_gap_score_DEFINITIVO.ipynb` | parquet merged + quote flotte | `sezioni_gap_score_DEFINITIVO.parquet` |
 
-> **Attenzione al passo 10.** Il notebook `08_gap_score_DEFINITIVO.ipynb` apre un
-> file chiamato `sezioni_gap_score.parquet`: è il parquet prodotto al passo 9
-> (`sezioni_offerta_domanda_merged.parquet`) con un altro nome. Va rinominato a
-> mano, oppure si cambia il percorso nella prima cella del notebook. È l'unico
-> passaggio manuale rimasto nella pipeline.
+> **Passo 10.** Il notebook `08_gap_score_DEFINITIVO.ipynb` cercava un file
+> chiamato `sezioni_gap_score.parquet`, cioè il parquet del passo 9
+> (`sezioni_offerta_domanda_merged.parquet`) con un altro nome, e andava
+> rinominato a mano. Ora la prima cella accetta entrambi i nomi e li cerca in
+> `output/` e poi in `data/`: **la rinomina manuale non serve più**.
 
 Lo step 3 usa Selenium: `opv.aci.it` è una dashboard Pentaho/CDF senza endpoint
 scaricabile, i dati si leggono dallo stato interno del componente. Se ACI
@@ -204,6 +211,7 @@ Vanno recuperati prima di eseguire gli step che li usano.
 | `province_geom.parquet` | mappe: `03_mappe_identiche_v2.py`, notebook `13` | Confini provinciali ISTAT, dissolti per `CODPRO` a partire dalle basi territoriali scaricate al passo 1 |
 | `colonnine_rimosse_controprova.csv` | siting: script `07` e `10` | Prodotto dalla selezione delle sezioni target, **script mai versionato**. Senza, `07` e `10` escono con un messaggio e la controprova quantitativa non è calcolabile: è l'unico ramo della pipeline che resta non riproducibile |
 | `04_correzione_v3_composizione.py` | terza correzione | Mai versionato |
+| I 20 CSV di indicatori censuari ISTAT per regione (`R01_indicatori_2011_sezioni.csv` …) | notebook `01_sezioni_censimento.ipynb` | Download manuale dal portale ISTAT (nessuno script lo automatizza). Vanno messi in `output/indicatori_istat_2011/` o indicati con `EV_INDICATORI_ISTAT_DIR`. Il derivato che alimenta la pipeline (`data/0_sezioni_censimento_2011_ridotto.csv`) è comunque già versionato |
 
 ---
 
