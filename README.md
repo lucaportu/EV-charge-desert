@@ -211,6 +211,7 @@ Vanno recuperati prima di eseguire gli step che li usano.
 | `province_geom.parquet` | mappe: `03_mappe_identiche_v2.py`, notebook `13` | Confini provinciali ISTAT, dissolti per `CODPRO` a partire dalle basi territoriali scaricate al passo 1 |
 | `colonnine_rimosse_controprova.csv` | siting: script `07` e `10` | Prodotto dalla selezione delle sezioni target, **script mai versionato**. Senza, `07` e `10` escono con un messaggio e la controprova quantitativa non è calcolabile: è l'unico ramo della pipeline che resta non riproducibile |
 | `04_correzione_v3_composizione.py` | terza correzione | Mai versionato |
+| Colonna `quota_bisogno_pubblico_sezione` (fattibilità di ricarica domestica, E27/E3) | passo 10, notebook `08` e `02_sezioni_e_gap_v2.py` | **Nessuno script del repository la calcola**: arriva già pronta nel parquet del passo 9. Rigenerando la domanda per sezione dai notebook `05` `06` la colonna non c'è (e i nomi delle colonne EV sono diversi: `EV_stimate_sezione` invece di `veicoli_da_ricaricare_stimati`): una ricostruzione da zero del passo 10 richiede di riportare questa variabile dall'archivio di progetto |
 | I 20 CSV di indicatori censuari ISTAT per regione (`R01_indicatori_2011_sezioni.csv` …) | notebook `01_sezioni_censimento.ipynb` | Download manuale dal portale ISTAT (nessuno script lo automatizza). Vanno messi in `output/indicatori_istat_2011/` o indicati con `EV_INDICATORI_ISTAT_DIR`. Il derivato che alimenta la pipeline (`data/0_sezioni_censimento_2011_ridotto.csv`) è comunque già versionato |
 
 ---
