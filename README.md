@@ -112,7 +112,7 @@ che sta a monte.
 | 5 | `notebooks/04_correzione_flotte_aci.ipynb` | parco ACI/MIT 2019 | `quota_flotte_ev_2019_per_provincia.json` |
 | 6 | `notebooks/03_colonnine_pun.ipynb` | PUN (web) | `pun_colonnine_pulito.csv` |
 | 7 | `src/01_pipeline_nazionale/04_assegna_colonnine_sezioni.py` | parquet sezioni + `pun_colonnine_pulito.csv` | `offerta_colonnine_per_sezione.parquet` |
-| 8 | `notebooks/05` `06` `07` (IDI) | parquet sezioni | `domanda_ricarica_2025_per_sezione_IDI3_beta050.csv` |
+| 8 | `notebooks/05` `06` (IDI) | `data/0_sezioni_censimento_2011_ridotto.csv` | `output/idi/stima_EV_per_sezione_con_IDI.csv.gz` → è la domanda per sezione del passo 9 (vedi nota) |
 | 9 | `src/01_pipeline_nazionale/05_merge_auto_colonnine_geo.py` | i tre output sopra | `sezioni_offerta_domanda_merged.parquet` |
 | 10 | `notebooks/08_gap_score_DEFINITIVO.ipynb` | parquet merged + quote flotte | `sezioni_gap_score_DEFINITIVO.parquet` |
 
@@ -207,7 +207,7 @@ Vanno recuperati prima di eseguire gli step che li usano.
 
 | File | Serve a | Come ottenerlo |
 | --- | --- | --- |
-| `domanda_ricarica_2025_per_sezione_IDI3_beta050.csv` | passo 9 (merge) | È l'output dei notebook `05` `06` `07`: rieseguirli produce il file. Sull'archivio di progetto esistono due varianti (`…_IDI.csv`, `…_beta050_CORRETTA.csv`): lo script le accetta entrambe, oppure si indica il file con `EV_DOMANDA_SEZIONE_CSV=/percorso/file.csv` |
+| `domanda_ricarica_2025_per_sezione_IDI3_beta050.csv` | passo 9 (merge) | I notebook `05` `06` producono lo stesso contenuto, ma con **nome e parametri diversi**: `output/idi/stima_EV_per_sezione_con_IDI.csv.gz`, con `IDI_VARIANT_FOR_EV = "IDI4"` (nb 05) e `BETA_IDI_EV = 0.30` (nb 06). Per riprodurre esattamente il file usato nel progetto vanno impostati la variante `IDI3` e β = 0,50, poi si indica il risultato con `EV_DOMANDA_SEZIONE_CSV=/percorso/file.csv` (lo script accetta anche i nomi `…_IDI.csv` e `…_beta050_CORRETTA.csv`). Il notebook `07` non produce nulla: è una guida di lettura del CSV |
 | `province_geom.parquet` | mappe: `03_mappe_identiche_v2.py`, notebook `13` | Confini provinciali ISTAT, dissolti per `CODPRO` a partire dalle basi territoriali scaricate al passo 1 |
 | `colonnine_rimosse_controprova.csv` | siting: script `07` e `10` | Prodotto dalla selezione delle sezioni target, **script mai versionato**. Senza, `07` e `10` escono con un messaggio e la controprova quantitativa non è calcolabile: è l'unico ramo della pipeline che resta non riproducibile |
 | `04_correzione_v3_composizione.py` | terza correzione | Mai versionato |
