@@ -2,7 +2,7 @@
 
 Dove, in Italia, la disponibilità di colonnine di ricarica pubbliche è più lontana
 dal bisogno reale della popolazione. Unità di analisi: la sezione di censimento
-ISTAT 2011 (402.678 poligoni).
+ISTAT 2011 (402.678 poligoni)
 
 Project Work — Big Data Processing & Data Engineering
 Fasanelli S. · La Vacca G. · Portugalli L. · Roscini R.
